@@ -9,6 +9,7 @@
 
 html {
   background: #f7f8fb;
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -44,7 +45,7 @@ body {
 
 .typing-header,
 .typing-hero {
-  --typing-duration: 1.2s;
+  --typing-duration: 4s;
   --typing-delay: 0s;
   --typing-end: 100%;
   display: inline-block;
@@ -55,21 +56,21 @@ body {
 }
 
 .typing-header {
-  --typing-duration: 1s;
+  --typing-duration: 3.2s;
   --typing-delay: 0s;
   --typing-end: 9ch;
 }
 
 .typing-hero {
-  --typing-duration: 1.8s;
-  --typing-delay: 0.2s;
+  --typing-duration: 4.6s;
+  --typing-delay: 0s;
   --typing-end: 18ch;
 }
 
 .typing-copy {
   display: inline-block;
   max-width: 100%;
-  animation: typing-clip var(--typing-duration) steps(18) var(--typing-delay) both;
+  animation: typing-clip var(--typing-duration) steps(18) var(--typing-delay) infinite both;
 }
 
 .typing-header .typing-copy {
@@ -197,12 +198,18 @@ body {
 }
 
 @keyframes typing-clip {
-  from {
+  0%,
+  12% {
     clip-path: inset(0 100% 0 0);
   }
 
-  to {
+  45%,
+  78% {
     clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 100% 0 0);
   }
 }
 

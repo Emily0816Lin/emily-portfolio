@@ -27,6 +27,90 @@ body {
   color: #0f172a;
 }
 
+.hero-greeting {
+  animation: hero-rise 0.7s ease both;
+}
+
+.hero-actions {
+  animation: hero-rise 0.7s ease 0.12s both;
+}
+
+.hero-headshot {
+  animation: hero-scale 0.75s ease 0.18s both;
+}
+
+.education-section {
+  animation: section-rise 0.75s ease both;
+}
+
+.timeline-panel {
+  animation: section-rise 0.75s ease 0.1s both;
+}
+
+.timeline-item {
+  animation: timeline-slide 0.65s ease both;
+}
+
+.timeline-item:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.timeline-item:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.timeline-item:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes section-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes timeline-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 button,
 a {
   transition: all 0.24s ease;

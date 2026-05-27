@@ -3,7 +3,7 @@ import headshot from './assets/headshot.png'
 import aiStepsImage from './assets/ai_steps.png'
 import awdeaImage from './assets/awdea.jpg'
 import courseSchedulerImage from './assets/course_scheduler.png'
-import resumePdf from './assets/My_resume.pdf'
+import resumePdf from './assets/my_resume.pdf'
 
 const projects = [
   {

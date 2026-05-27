@@ -8,13 +8,16 @@
 }
 
 html {
-  background: #f4f2ef;
+  background: #f7f8fb;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f4f2ef;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(255, 255, 255, 0) 28%),
+    linear-gradient(225deg, rgba(219, 39, 119, 0.1) 0%, rgba(255, 255, 255, 0) 30%),
+    linear-gradient(180deg, #f8fbff 0%, #f7f1f6 46%, #f4faf7 100%);
   color: #0f172a;
 }
 
@@ -39,16 +42,73 @@ body {
   animation: hero-scale 0.75s ease 0.18s both;
 }
 
+.typing-header,
+.typing-hero {
+  --typing-duration: 1.2s;
+  --typing-delay: 0s;
+  --typing-end: 100%;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.typing-header {
+  --typing-duration: 1s;
+  --typing-delay: 0s;
+  --typing-end: 9ch;
+}
+
+.typing-hero {
+  --typing-duration: 1.8s;
+  --typing-delay: 0.2s;
+  --typing-end: 18ch;
+}
+
+.typing-copy {
+  display: inline-block;
+  max-width: 100%;
+  animation: typing-clip var(--typing-duration) steps(18) var(--typing-delay) both;
+}
+
+.typing-header .typing-copy {
+  animation-timing-function: steps(9);
+}
+
+.typing-caret {
+  display: none;
+}
+
+.typing-header .typing-caret {
+  display: none;
+}
+
+.name-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #0ea5e9 42%, #db2777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-title-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #2563eb 34%, #0f766e 68%, #db2777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .education-section {
-  animation: section-rise 0.75s ease both;
 }
 
 .timeline-panel {
+}
+
+.scroll-reveal.is-visible .timeline-panel {
   animation: section-rise 0.75s ease 0.1s both;
 }
 
 .timeline-item {
-  animation: timeline-slide 0.65s ease both;
 }
 
 .timeline-item:nth-child(2) {
@@ -61,6 +121,31 @@ body {
 
 .timeline-item:nth-child(4) {
   animation-delay: 0.24s;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease,
+    background-color 0.24s ease;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible.education-section {
+  animation: section-rise 0.75s ease both;
+}
+
+.scroll-reveal.is-visible.timeline-item {
+  animation: timeline-slide 0.65s ease both;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes hero-rise {
@@ -111,6 +196,32 @@ body {
   }
 }
 
+@keyframes typing-clip {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes caret-move {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(var(--typing-end));
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
 button,
 a {
   transition: all 0.24s ease;
@@ -122,6 +233,24 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .typing-header,
+  .typing-hero {
+    white-space: normal;
+  }
+
+  .typing-copy {
+    clip-path: none !important;
+  }
+
+  .typing-caret {
+    display: none;
   }
 }
 

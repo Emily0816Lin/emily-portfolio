@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import headshot from './assets/headshot.png'
 import aiStepsImage from './assets/ai_steps.png'
 import awdeaImage from './assets/awdea.jpg'
@@ -37,10 +38,14 @@ const skillGroups = [
     items: [
       { name: 'JavaScript', icon: 'https://cdn.simpleicons.org/javascript/F7DF1E' },
       { name: 'TypeScript', icon: 'https://cdn.simpleicons.org/typescript/3178C6' },
-      { name: 'HTML/CSS', initials: 'HC' },
+      { name: 'HTML', icon: 'https://cdn.simpleicons.org/html5/E34F26' },
+      { name: 'CSS', icon: 'https://cdn.simpleicons.org/css/663399' },
       { name: 'Python', icon: 'https://cdn.simpleicons.org/python/3776AB' },
       { name: 'Java', icon: 'https://cdn.simpleicons.org/openjdk/000000' },
       { name: 'SQL', initials: 'SQL' },
+      { name: 'C', icon: 'https://cdn.simpleicons.org/c/A8B9CC' },
+      { name: 'Kotlin', icon: 'https://cdn.simpleicons.org/kotlin/7F52FF' },
+      { name: 'R', icon: 'https://cdn.simpleicons.org/r/276DC3' },
     ],
   },
   {
@@ -52,6 +57,7 @@ const skillGroups = [
       { name: 'FastAPI', icon: 'https://cdn.simpleicons.org/fastapi/009688' },
       { name: 'Tailwind CSS', icon: 'https://cdn.simpleicons.org/tailwindcss/06B6D4' },
       { name: 'Bootstrap', icon: 'https://cdn.simpleicons.org/bootstrap/7952B3' },
+      { name: 'RESTful APIs', initials: 'API' },
     ],
   },
   {
@@ -63,6 +69,8 @@ const skillGroups = [
       { name: 'Postman', icon: 'https://cdn.simpleicons.org/postman/FF6C37' },
       { name: 'Swagger/OpenAPI', icon: 'https://cdn.simpleicons.org/swagger/85EA2D' },
       { name: 'Git', icon: 'https://cdn.simpleicons.org/git/F05032' },
+      { name: 'Bash/Shell Scripting', icon: 'https://cdn.simpleicons.org/gnubash/4EAA25' },
+      { name: 'Figma', icon: 'https://cdn.simpleicons.org/figma/F24E1E' },
     ],
   },
   {
@@ -129,6 +137,26 @@ const timelineItems = [
 ]
 
 function App() {
+  useEffect(() => {
+    const revealElements = document.querySelectorAll('.scroll-reveal')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.16, rootMargin: '0px 0px -60px 0px' },
+    )
+
+    revealElements.forEach((element) => observer.observe(element))
+
+    return () => observer.disconnect()
+  }, [])
+
   const handlePrintResume = () => {
     const resumeWindow = window.open(resumePdf, '_blank')
     if (resumeWindow) {
@@ -139,33 +167,41 @@ function App() {
   }
 
   return (
-    <div id="top" className="min-h-screen bg-[#f4f2ef] text-slate-900">
+    <div id="top" className="min-h-screen bg-transparent text-slate-900">
       <div className="mx-auto max-w-6xl px-6 py-8 sm:px-8 lg:px-10">
-        <header className="sticky top-0 z-50 -mx-6 border-b border-slate-200 bg-[#f4f2ef]/70 px-6 py-4 shadow-sm backdrop-blur-xl sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10">
+        <header className="sticky top-3 z-50 -mx-2 rounded-full border border-white/45 bg-white/20 px-4 py-1.5 shadow-[0_10px_28px_rgba(15,23,42,0.07)] backdrop-blur-xl">
           <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
-            <a href="#top" className="justify-self-center text-lg font-semibold tracking-tight text-slate-950 transition hover:text-slate-600 sm:justify-self-start">
-              Emily Lin
-            </a>
+            <span className="justify-self-center px-3 py-1 text-lg font-semibold tracking-tight text-slate-950 sm:justify-self-start">
+              <span className="typing-header">
+                <span className="typing-copy name-gradient">Emily Lin</span>
+                <span className="typing-caret" aria-hidden="true" />
+              </span>
+            </span>
             <nav className="flex flex-wrap justify-center gap-4 text-base font-medium text-slate-600 sm:text-lg">
-              <a href="#about" className="transition hover:text-slate-900">About</a>
-              <a href="#experience" className="transition hover:text-slate-900">Education & Experience</a>
-              <a href="#projects" className="transition hover:text-slate-900">Projects</a>
-              <a href="#skills" className="transition hover:text-slate-900">Skills</a>
-              <a href="#contact" className="transition hover:text-slate-900">Contact</a>
+              <a href="#about" className="rounded-full px-3 py-1.5 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-900 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)]">About me</a>
+              <a href="#skills" className="rounded-full px-3 py-1.5 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-900 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)]">Skills</a>
+              <a href="#projects" className="rounded-full px-3 py-1.5 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-900 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)]">Projects</a>
+              <a href="#experience" className="rounded-full px-3 py-1.5 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-900 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)]">Education & Experience</a>
+              <a href="#contact" className="rounded-full px-3 py-1.5 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-900 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)]">Contact</a>
             </nav>
-            <a href="#top" className="justify-self-center text-base font-semibold text-slate-700 transition hover:text-slate-950 sm:justify-self-end sm:text-lg">
+            {/* <a href="#top" className="justify-self-center rounded-full px-4 py-2 text-base font-semibold text-slate-700 transition hover:-translate-y-1 hover:scale-105 hover:bg-white/80 hover:text-slate-950 hover:shadow-[0_12px_26px_rgba(15,23,42,0.14)] sm:justify-self-end sm:text-lg">
               Top
-            </a>
+            </a> */}
           </div>
         </header>
 
         <main className="space-y-24 py-12">
-          <section className="rounded-[32px] border border-slate-200 bg-white/80 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.05)] sm:p-12 lg:p-14">
-            <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-12">
-              <div className="space-y-6">
-                <div className="max-w-xl space-y-4">
-                  <h1 className="hero-greeting text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-                    Hi, I am Emily Lin
+          <section className="scroll-reveal rounded-[32px] border border-white/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(236,253,245,0.74)_42%,rgba(239,246,255,0.86))] p-8 shadow-[0_30px_90px_rgba(37,99,235,0.12)] sm:p-12 lg:p-14">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(18rem,0.8fr)] lg:items-center lg:gap-12">
+              <div className="min-w-0 space-y-6">
+                <div className="max-w-2xl space-y-4">
+                  <h1 className="hero-greeting text-[clamp(2.7rem,8vw,4.5rem)] font-semibold leading-[1.05] tracking-tight text-slate-950">
+                    <span className="typing-hero">
+                      <span className="typing-copy">
+                        Hi, I am <span className="name-gradient">Emily Lin</span>
+                      </span>
+                      <span className="typing-caret" aria-hidden="true" />
+                    </span>
                   </h1>
                   <p className="text-lg leading-8 text-slate-600">
                     Junior full-stack developer with hands-on software delivery experience, backend API expertise, and cloud deployment skills.
@@ -173,7 +209,7 @@ function App() {
                 </div>
 
                 <div className="hero-actions flex flex-wrap gap-3">
-                  <a href="mailto:emilysmileee@gmail.com" className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-1 hover:bg-slate-800 hover:shadow-md">
+                  <a href="mailto:emilysmileee@gmail.com" className="group inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#0f172a,#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(15,118,110,0.22)] transition hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(15,118,110,0.28)]">
                     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16v12H4z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="m4 7 8 6 8-6" />
@@ -192,6 +228,15 @@ function App() {
                     </svg>
                     GitHub
                   </a>
+                  <a href="#contact" className="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l4 4v14H7z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 13h6" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 17h6" />
+                    </svg>
+                    Resume
+                  </a>
                 </div>
               </div>
 
@@ -199,15 +244,15 @@ function App() {
                 <img
                   src={headshot}
                   alt="Emily Lin"
-                  className="h-64 w-64 rounded-full border-8 border-white object-cover object-center shadow-[0_24px_60px_rgba(15,23,42,0.14)] sm:h-80 sm:w-80"
+                  className="aspect-[3/4] w-[min(72vw,18rem)] rounded-[999px] border-8 border-white object-cover object-center shadow-[0_24px_60px_rgba(15,23,42,0.14)] sm:w-72 lg:w-full lg:max-w-72"
                 />
               </div>
             </div>
           </section>
 
-          <section id="about" className="space-y-8">
-            <div className="max-w-2xl">
-              <p className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">About</p>
+          <section id="about" className="scroll-reveal space-y-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="section-title-gradient text-4xl font-semibold tracking-tight sm:text-5xl">About me</p>
               <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
                 full-stack developer with a product engineering mindset.
               </h2>
@@ -223,25 +268,113 @@ function App() {
                 'Backend systems, API design, database integration, and serverless deployment.',
                 'Service industry experience supporting teamwork, communication, and problem-solving.',
               ].map((item) => (
-                <div key={item} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                <div key={item} className="scroll-reveal rounded-3xl border border-white/80 bg-white/85 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] transition hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(14,165,233,0.14)]">
                   <p className="text-sm text-slate-600">{item}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          <section id="experience" className="education-section space-y-8">
-            <div className="max-w-2xl">
-              <p className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Education & Experience</p>
+          <section id="skills" className="scroll-reveal space-y-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="section-title-gradient text-4xl font-semibold tracking-tight sm:text-5xl">Skills</p>
+              <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
+                A balanced toolkit for frontend, backend, and cloud-facing work.
+              </h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {skillGroups.map((group) => (
+                <div key={group.category} className="scroll-reveal rounded-3xl border border-white/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.95),rgba(240,249,255,0.76))] p-8 shadow-[0_18px_42px_rgba(15,23,42,0.08)]">
+                  <h3 className="text-lg font-semibold text-slate-950">{group.category}</h3>
+                  <ul className="mt-6 grid grid-cols-3 gap-5 sm:grid-cols-5">
+                    {group.items.map((item) => (
+                      <li key={item.name} className="relative">
+                        <div
+                          aria-label={item.name}
+                          className="group relative flex aspect-square items-center justify-center rounded-2xl p-1 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-300"
+                          tabIndex="0"
+                          title={item.name}
+                        >
+                          {item.icon ? (
+                            <img src={item.icon} alt="" className="h-full w-full object-contain drop-shadow-[0_12px_16px_rgba(15,23,42,0.22)] transition group-hover:drop-shadow-[0_16px_22px_rgba(15,23,42,0.28)]" loading="lazy" />
+                          ) : (
+                            <span className="flex h-full w-full items-center justify-center rounded-2xl bg-slate-100 text-lg font-semibold text-slate-900 shadow-[0_12px_20px_rgba(15,23,42,0.16)] transition group-hover:shadow-[0_16px_26px_rgba(15,23,42,0.22)]">{item.initials}</span>
+                          )}
+                          <span className="pointer-events-none absolute -top-10 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 group-focus:opacity-100">
+                            {item.name}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section id="projects" className="scroll-reveal space-y-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="section-title-gradient text-4xl font-semibold tracking-tight sm:text-5xl">Featured Projects</p>
+              <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
+                Product-focused apps built for scale and clarity.
+              </h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {projects.map((project) => (
+                <a
+                  key={project.title}
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${project.title}`}
+                  className="scroll-reveal group relative min-h-[24rem] overflow-hidden rounded-[28px] border border-slate-200 bg-slate-950 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
+                >
+                  <img
+                    src={project.image}
+                    alt={`${project.title} project preview`}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105 group-focus:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/5 transition group-hover:from-slate-950 group-hover:via-slate-950/80 group-focus:from-slate-950 group-focus:via-slate-950/80" />
+                  <div className="relative flex h-full min-h-[24rem] flex-col justify-end p-6 text-white">
+                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                    <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:mt-4 group-hover:max-h-72 group-hover:opacity-100 group-focus:mt-4 group-focus:max-h-72 group-focus:opacity-100">
+                      <p className="text-sm leading-7 text-slate-200">{project.description}</p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {project.tech.map((tech) => (
+                          <span key={tech} className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-slate-100 backdrop-blur">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-slate-950 transition group-hover:translate-x-1 group-focus:translate-x-1">
+                        Click to view
+                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m13 6 6 6-6 6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section id="experience" className="education-section scroll-reveal space-y-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="section-title-gradient text-4xl font-semibold tracking-tight sm:text-5xl">Education & Experience</p>
               <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
                 Education and experience shaped through software, service, and self-learning.
               </h2>
             </div>
 
-            <div className="timeline-panel rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+            <div className="timeline-panel rounded-[32px] border border-white/80 bg-white/90 p-6 shadow-[0_22px_60px_rgba(15,23,42,0.09)] sm:p-8 lg:p-10">
               <div className="relative space-y-8 before:absolute before:bottom-6 before:left-4 before:top-6 before:w-px before:bg-slate-200 sm:before:left-6">
                 {timelineItems.map((item) => (
-                  <article key={item.id} className="timeline-item group relative grid gap-4 pl-12 transition hover:-translate-y-1 sm:grid-cols-[13rem_1fr] sm:gap-8 sm:pl-16">
+                  <article key={item.id} className="scroll-reveal timeline-item group relative grid gap-4 pl-12 transition hover:-translate-y-1 sm:grid-cols-[13rem_1fr] sm:gap-8 sm:pl-16">
                     <div className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 bg-white shadow-sm sm:left-2">
                       <span className="h-3 w-3 rounded-full bg-slate-950" />
                     </div>
@@ -250,7 +383,7 @@ function App() {
                       <p className="mt-2 text-sm leading-6 text-slate-600">{item.timeRange}</p>
                       <p className="text-sm leading-6 text-slate-600">{item.location}</p>
                     </div>
-                    <div className="rounded-3xl bg-slate-50 p-5 shadow-[0_16px_34px_rgba(15,23,42,0.08)] transition group-hover:shadow-[0_22px_44px_rgba(15,23,42,0.12)]">
+                    <div className="rounded-3xl bg-[linear-gradient(145deg,rgba(248,250,252,1),rgba(236,253,245,0.78))] p-5 shadow-[0_16px_34px_rgba(15,23,42,0.08)] transition group-hover:shadow-[0_22px_44px_rgba(14,165,233,0.16)]">
                       <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
                       {item.subtitle && (
                         <div className="mt-4 flex flex-wrap gap-2">
@@ -285,95 +418,7 @@ function App() {
             </div>
           </section>
 
-          <section id="projects" className="space-y-8">
-            <div className="max-w-2xl">
-              <p className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Featured Projects</p>
-              <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
-                Product-focused apps built for scale and clarity.
-              </h2>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {projects.map((project) => (
-                <a
-                  key={project.title}
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`View ${project.title}`}
-                  className="group relative min-h-[24rem] overflow-hidden rounded-[28px] border border-slate-200 bg-slate-950 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
-                >
-                  <img
-                    src={project.image}
-                    alt={`${project.title} project preview`}
-                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105 group-focus:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/5 transition group-hover:from-slate-950 group-hover:via-slate-950/80 group-focus:from-slate-950 group-focus:via-slate-950/80" />
-                  <div className="relative flex h-full min-h-[24rem] flex-col justify-end p-6 text-white">
-                    <h3 className="text-xl font-semibold">{project.title}</h3>
-                    <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:mt-4 group-hover:max-h-72 group-hover:opacity-100 group-focus:mt-4 group-focus:max-h-72 group-focus:opacity-100">
-                      <p className="text-sm leading-7 text-slate-200">{project.description}</p>
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {project.tech.map((tech) => (
-                          <span key={tech} className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-slate-100 backdrop-blur">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-slate-950 transition group-hover:translate-x-1 group-focus:translate-x-1">
-                        Click to view
-                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m13 6 6 6-6 6" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          <section id="skills" className="space-y-8">
-            <div className="max-w-2xl">
-              <p className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Skills</p>
-              <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-700 sm:text-3xl">
-                A balanced toolkit for frontend, backend, and cloud-facing work.
-              </h2>
-            </div>
-
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {skillGroups.map((group) => (
-                <div key={group.category} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-slate-950">{group.category}</h3>
-                  <ul className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4">
-                    {group.items.map((item) => (
-                      <li key={item.name} className="relative">
-                        <div
-                          aria-label={item.name}
-                          className="group relative flex aspect-square items-center justify-center rounded-2xl p-1 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-300"
-                          tabIndex="0"
-                          title={item.name}
-                        >
-                          {item.icon ? (
-                            <img src={item.icon} alt="" className="h-full w-full object-contain drop-shadow-[0_12px_16px_rgba(15,23,42,0.22)] transition group-hover:drop-shadow-[0_16px_22px_rgba(15,23,42,0.28)]" loading="lazy" />
-                          ) : (
-                            <span className="flex h-full w-full items-center justify-center rounded-2xl bg-slate-100 text-lg font-semibold text-slate-900 shadow-[0_12px_20px_rgba(15,23,42,0.16)] transition group-hover:shadow-[0_16px_26px_rgba(15,23,42,0.22)]">{item.initials}</span>
-                          )}
-                          <span className="pointer-events-none absolute -top-10 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold text-white opacity-0 shadow-lg transition group-hover:opacity-100 group-focus:opacity-100">
-                            {item.name}
-                          </span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="contact" className="rounded-[32px] border border-slate-200 bg-slate-950 px-8 py-12 text-white shadow-[0_32px_90px_rgba(15,23,42,0.12)] sm:p-12">
+          <section id="contact" className="scroll-reveal rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,#0f172a_0%,#164e63_46%,#831843_100%)] px-8 py-12 text-white shadow-[0_32px_90px_rgba(15,23,42,0.22)] sm:p-12">
             <div className="mx-auto max-w-5xl text-center">
               <p className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Contact</p>
               <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-slate-300 sm:text-3xl">Let’s build the next experience together.</h2>
@@ -406,7 +451,7 @@ function App() {
                     <p className="mt-1 text-sm text-slate-600">Preview, download, or print the full resume.</p>
                   </div>
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <a href={resumePdf} download="Emily-Lin-Resume.pdf" className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-1 hover:bg-slate-800">
+                    <a href={resumePdf} download="Emily-Lin-Resume.pdf" className="inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#0f172a,#0f766e)] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(15,118,110,0.24)]">
                       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v12" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="m7 10 5 5 5-5" />
